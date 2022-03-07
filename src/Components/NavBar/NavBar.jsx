@@ -2,19 +2,20 @@ import { Link } from "react-router-dom";
 import Auth from "../../pages/AuthPage/AuthPage";
 import * as userService from "../../utilities/users-service";
 
-export default function NavBar({ user, setUser }) {
+export default function NavBar({ user, setUser, routeChange }) {
   function handleLogOut() {
     userService.logOut();
     setUser(null);
+    routeChange();
   }
 
   return (
     <nav>
       {user ? (
         <>
-          <Link onClick={handleLogOut} to="logout">
+          <a onClick={handleLogOut} >
             Logout
-          </Link>{" "}
+          </a>{" "}
           &nbsp; | &nbsp;
           <span>Welcome {user.name}</span>{" "}
         </>
