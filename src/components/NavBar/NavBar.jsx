@@ -13,11 +13,12 @@ export default function NavBar({ user, setUser, routeChange }) {
     <nav>
       {user ? (
         <>
-          <a onClick={handleLogOut} >
-            Logout
-          </a>{" "}
+          <span>Welcome {user.name}</span> &nbsp; | &nbsp;
+          <Link to="/trips">Trips </Link>
           &nbsp; | &nbsp;
-          <span>Welcome {user.name}</span>{" "}
+          <Link to="/trips/new">New Trip</Link>
+          &nbsp; | &nbsp;
+          <Link to='/' onClick={handleLogOut}>Logout</Link>
         </>
       ) : (
         <Link to="/login">Login </Link>
