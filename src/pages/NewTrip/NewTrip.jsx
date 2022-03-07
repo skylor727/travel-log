@@ -1,9 +1,13 @@
+import { useState } from "react";
 import "./NewTrip.css";
+import Modal from "../../components/Modal/Modal";
 
 const NewTrip = () => {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <>
       <h1>New Trip</h1>
+            {openModal && <Modal setOpenModal={setOpenModal} />}
       <form>
         <div className="form-wrapper">
           <label htmlFor="">
@@ -20,12 +24,17 @@ const NewTrip = () => {
           </label>
           <label htmlFor="">
             Activities:
-            <input type="text" />
+            <a
+              type="button"
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            >
+              Activity Form
+            </a>
           </label>
         </div>
-        <button type="submit">
-            Submit
-        </button>
+        {!openModal && <button type="submit">Submit</button>}
       </form>
     </>
   );
