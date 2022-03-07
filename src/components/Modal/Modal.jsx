@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "./Modal.css";
 const Modal = ({ setOpenModal }) => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <div className="modal-background">
       <div className="modal-container">
@@ -14,7 +18,7 @@ const Modal = ({ setOpenModal }) => {
             X
           </button>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="modal-content">
             <h1>Activity Form</h1>
             <label htmlFor="">

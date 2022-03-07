@@ -1,28 +1,46 @@
 import { useState } from "react";
-import "./NewTrip.css";
+import * as tripsAPI from "../../utilities/trips-api";
 import Modal from "../../components/Modal/Modal";
+import "./NewTrip.css";
 
 const NewTrip = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [formData, setFormData] = useState({
+    location: "",
+    cost: 0,
+    images: "",
+    activities: [],
+    date: "",
+  });
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    tripsAPI.createTrip(formData);
+  };
+
+  const handleChange = (evt) => {
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
+
   return (
     <>
       <h1>New Trip</h1>
-            {openModal && <Modal setOpenModal={setOpenModal} />}
-      <form>
+      {openModal && <Modal setOpenModal={setOpenModal} />}
+      <form onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <label htmlFor="">
             Location:
-            <input type="text" />
+            <input onChange={handleChange} name="location" type="text" />
           </label>
           <label htmlFor="">
             Total Cost:
-            <input type="number" />
+            <input onChange={handleChange} name="cost" type="number" />
           </label>
           <label htmlFor="">
             Images:
-            <input type="file" />
+            <input onChange={handleChange} name="images" type="file" />
           </label>
-          <label htmlFor="">
+          <label name="activities" htmlFor="">
             Activities:
             <a
               type="button"
@@ -32,6 +50,10 @@ const NewTrip = () => {
             >
               Activity Form
             </a>
+          </label>
+          <label htmlFor="">
+            Trip Date:
+            <input onChange={handleChange} name="date" type="date" />
           </label>
         </div>
         {!openModal && <button type="submit">Submit</button>}
