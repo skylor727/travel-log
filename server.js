@@ -20,6 +20,7 @@ app.use(require("./config/checkToken"));
 
 //API ROUTES HERE
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/trips", require("./routes/api/users"));
 //'Catch All Route'
 app.get("/*", (req, res) =>
   res.sendFile(path.join(__dirname, "build", "index.html"))
