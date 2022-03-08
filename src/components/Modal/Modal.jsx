@@ -4,7 +4,7 @@ const Modal = ({ setOpenModal, activities, setActivities }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    price: 0,
+    price: '',
   });
 
   const handleChange = (evt) => {
@@ -17,7 +17,7 @@ const Modal = ({ setOpenModal, activities, setActivities }) => {
     setFormData({
       title: "",
       description: "",
-      price: 0,
+      price: "",
     });
   };
 
@@ -38,14 +38,30 @@ const Modal = ({ setOpenModal, activities, setActivities }) => {
           <div className="modal-content">
             <h1>Activity Form</h1>
             <label htmlFor="">
-              Title <input name="title" onChange={handleChange} type="text" />
+              Title{" "}
+              <input
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                type="text"
+              />
             </label>
             <label htmlFor="">
               Description{" "}
-              <textarea name="description" onChange={handleChange} />
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+              />
             </label>
             <label htmlFor="">
-              Price <input name="price" onChange={handleChange} type="number" />
+              Price{" "}
+              <input
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                type="number"
+              />
             </label>
           </div>
 

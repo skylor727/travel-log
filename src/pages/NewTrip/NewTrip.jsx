@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
 import Modal from "../../components/Modal/Modal";
+import AcivityCard from "../../components/ActivityCard/ActivityCard";
 import "./NewTrip.css";
 
 const NewTrip = () => {
@@ -8,7 +9,7 @@ const NewTrip = () => {
   const [activities, setActivities] = useState([]);
   const [formData, setFormData] = useState({
     location: "",
-    cost: 0,
+    cost: "",
     images: "",
     activities: [],
     date: "",
@@ -16,12 +17,24 @@ const NewTrip = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    formData.activities = activities;
     tripsAPI.createTrip(formData);
+    setFormData({
+      location: "",
+      cost: "",
+      images: "",
+      activities: [],
+      date: "",
+    });
   };
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
+
+  const activityCards = activities.map((activity, idx) => (
+    <AcivityCard key={idx} activity={activity} />
+  ));
 
   return (
     <>
@@ -37,18 +50,30 @@ const NewTrip = () => {
         <div className="form-wrapper">
           <label htmlFor="">
             Location:
-            <input onChange={handleChange} name="location" type="text" />
+            <input
+              value={formData.location}
+              onChange={handleChange}
+              name="location"
+              type="text"
+            />
           </label>
           <label htmlFor="">
             Total Cost:
-            <input onChange={handleChange} name="cost" type="number" />
+            <input
+              value={formData.price}
+              onChange={handleChange}
+              name="cost"
+              type="number"
+            />
           </label>
           <label htmlFor="">
             Images:
-            <input onChange={handleChange} name="images" type="file" />
+            <input value="" onChange={handleChange} name="images" type="file" />
           </label>
-          <label name="activities" htmlFor="">
+          <span>
             Activities:
+            {activityCards}
+            <br />
             <button
               type="button"
               onClick={() => {
@@ -57,10 +82,16 @@ const NewTrip = () => {
             >
               Activity Form
             </button>
-          </label>
+          </span>
+
           <label htmlFor="">
             Trip Date:
-            <input onChange={handleChange} name="date" type="date" />
+            <input
+              value={formData.date}
+              onChange={handleChange}
+              name="date"
+              type="date"
+            />
           </label>
         </div>
         {!openModal && <button type="submit">Submit</button>}
