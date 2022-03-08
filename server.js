@@ -21,6 +21,7 @@ app.use(require("./config/checkToken"));
 //API ROUTES HERE
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/trips", require("./routes/api/trips"));
+app.use("/api/photos", require("./routes/api/photos"));
 //'Catch All Route'
 app.get("/*", (req, res) =>
   res.sendFile(path.join(__dirname, "build", "index.html"))

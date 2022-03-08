@@ -19,6 +19,8 @@ export default function NavBar({ user, setUser, routeChange }) {
           <Link to="/trips/new">New Trip</Link>
           &nbsp; | &nbsp;
           <Link to='/' onClick={handleLogOut}>Logout</Link>
+          &nbsp; | &nbsp;
+          <Link to='/photos/test' >test</Link>
         </>
       ) : (
         <Link to="/login">Login </Link>
