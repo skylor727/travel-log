@@ -1,8 +1,24 @@
 import { useState } from "react";
 import "./Modal.css";
-const Modal = ({ setOpenModal }) => {
+const Modal = ({ setOpenModal, activities, setActivities }) => {
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    price: 0,
+  });
+
+  const handleChange = (evt) => {
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    setActivities([...activities, formData]);
+    setFormData({
+      title: "",
+      description: "",
+      price: 0,
+    });
   };
 
   return (
@@ -18,17 +34,18 @@ const Modal = ({ setOpenModal }) => {
             X
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form className="trip-form" onSubmit={handleSubmit}>
           <div className="modal-content">
             <h1>Activity Form</h1>
             <label htmlFor="">
-              Title <input type="text" />
+              Title <input name="title" onChange={handleChange} type="text" />
             </label>
             <label htmlFor="">
-              Description <textarea />
+              Description{" "}
+              <textarea name="description" onChange={handleChange} />
             </label>
             <label htmlFor="">
-              Price <input type="number" />
+              Price <input name="price" onChange={handleChange} type="number" />
             </label>
           </div>
 

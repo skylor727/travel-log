@@ -5,6 +5,7 @@ import "./NewTrip.css";
 
 const NewTrip = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [activities, setActivities] = useState([]);
   const [formData, setFormData] = useState({
     location: "",
     cost: 0,
@@ -25,8 +26,14 @@ const NewTrip = () => {
   return (
     <>
       <h1>New Trip</h1>
-      {openModal && <Modal setOpenModal={setOpenModal} />}
-      <form onSubmit={handleSubmit}>
+      {openModal && (
+        <Modal
+          activities={activities}
+          setActivities={setActivities}
+          setOpenModal={setOpenModal}
+        />
+      )}
+      <form className="trip-form" onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <label htmlFor="">
             Location:
@@ -42,14 +49,14 @@ const NewTrip = () => {
           </label>
           <label name="activities" htmlFor="">
             Activities:
-            <a
+            <button
               type="button"
               onClick={() => {
                 setOpenModal(true);
               }}
             >
               Activity Form
-            </a>
+            </button>
           </label>
           <label htmlFor="">
             Trip Date:
