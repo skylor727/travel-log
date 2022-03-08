@@ -13,15 +13,13 @@ const s3 = new S3({
 //upload to s3
 
 const uploadFile = (file) => {
-  console.log(file);
   try {
     const fileStream = fs.createReadStream(file.path);
     const uploadParams = {
       Bucket: bucketName,
       Body: fileStream,
       Key: file.filename,
-      ContentType: 'image/jpg'
-      
+      ContentType: "image/jpg",
     };
     return s3.upload(uploadParams).promise();
   } catch (err) {

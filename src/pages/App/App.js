@@ -7,7 +7,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import Home from "../../pages/Home/Home";
 import Trips from "../../pages/Trips/Trips";
 import NewTrip from "../../pages/NewTrip/NewTrip";
-import PhotoTest from "../../pages/PhotoTest/PhotoTest";
 
 export default function App() {
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ export default function App() {
         />
         <Route path="/trips" element={<Trips />} />
         <Route path="/trips/new" element={<NewTrip />} />
-        <Route path="/photos/test" element={<PhotoTest />} />
       </Routes>
     </main>
   );
