@@ -28,13 +28,16 @@ const create = async (req, res) => {
 };
 
 const index = async (req, res) => {
+  let trips = {
+    userTrips: null,
+    allTrips: null,
+  };
   try {
-    Trip.find({ user: req.user._id })
+    trips.userTrips = await Trip.find({ user: req.user._id })
       .populate("user")
-      .exec((err, trips) => {
-        if (err) res.send(err);
-        res.json(trips);
-      });
+      .exec();
+    trips.allTrips = await Trip.find({}).populate("user").exec();
+    res.json(trips)
   } catch (err) {
     res.send(err);
   }

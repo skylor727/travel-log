@@ -1,5 +1,4 @@
 const DetailedActivityCard = ({ activity }) => {
-  console.log(activity, " activity");
   const { title, description, price } = activity;
   return (
     <>
