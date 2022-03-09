@@ -28,7 +28,7 @@ const create = async (req, res) => {
 };
 
 const index = async (req, res) => {
-  let trips = {
+  const trips = {
     userTrips: null,
     allTrips: null,
   };

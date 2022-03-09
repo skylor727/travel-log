@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 const Trips = () => {
   let userTripCards = [];
   const [userTrips, setUserTrips] = useState(null);
+  const [trips, setTrips] = useState(null);
   useEffect(() => {
     const getTrips = async () => {
       const trips = await tripsAPI.getTrips();
-      console.log(trips);
-      setUserTrips(trips);
+      setUserTrips(trips.userTrips);
+      setTrips(trips.trips);
     };
     getTrips();
   }, []);
