@@ -3,7 +3,7 @@ import TripCard from "../../components/TripCard/TripCard";
 import { useState, useEffect } from "react";
 
 const Trips = () => {
-  const [trips, setTrips] = useState(null);
+  const [trips, setTrips] = useState([]);
   useEffect(() => {
     const getTrips = async () => {
       const usersTrips = await tripsAPI.getTrips();
