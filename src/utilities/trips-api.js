@@ -5,3 +5,7 @@ const BASE_URL = "/api/trips";
 export function createTrip(tripData) {
   return sendRequest(`${BASE_URL}/new`, "POST", tripData);
 }
+
+export function getTrips() {
+  return sendRequest(`${BASE_URL}`);
+}

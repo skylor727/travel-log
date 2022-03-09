@@ -26,4 +26,12 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { create };
+const index = async (req, res) => {
+  try {
+    const trips = await Trip.find({ createdBy: req.user._id });
+    res.json(trips);
+  } catch (err) {
+    res.send(err);
+  }
+};
+module.exports = { create, index };
