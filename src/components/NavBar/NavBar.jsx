@@ -14,6 +14,8 @@ export default function NavBar({ user, setUser, routeChange }) {
       {user ? (
         <>
           <span>Welcome {user.name}</span> &nbsp; | &nbsp;
+          <Link to="/">Home</Link>
+          &nbsp; | &nbsp;
           <Link to="/trips">Trips </Link>
           &nbsp; | &nbsp;
           <Link to="/trips/new">New Trip</Link>
