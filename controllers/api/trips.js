@@ -39,4 +39,17 @@ const index = async (req, res) => {
     res.send(err);
   }
 };
-module.exports = { create, index };
+
+const show = async (req, res) => {
+  try {
+    Trip.findById(req.params.id)
+      .populate("user")
+      .exec((err, trip) => {
+        if (err) res.send(err);
+        res.json(trip);
+      });
+  } catch (err) {
+    res.send(err);
+  }
+};
+module.exports = { create, index, show };

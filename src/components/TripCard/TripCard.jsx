@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import ActivityCard from "../ActivityCard/ActivityCard";
 const TripCard = ({ trip }) => {
-  const [tripInfo] = trip;
-  const { user, activities, date, images, location, tripCost } = tripInfo;
+  const { user, activities, date, images, location, tripCost } = trip;
   const activityCards = activities.map((activity, idx) => (
     <ActivityCard activity={activity} key={idx} />
   ));
@@ -13,7 +12,7 @@ const TripCard = ({ trip }) => {
         <p>Activities: {activityCards}</p>
         <p>Trip Date: {date}</p>
         <p>Est Cost: ${tripCost}</p>
-        <Link to="/:id">Details</Link>
+        <Link to={`/trips/${trip._id}`}>Details</Link>
       </div>
     </>
   );

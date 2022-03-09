@@ -9,3 +9,7 @@ export function createTrip(tripData) {
 export function getTrips() {
   return sendRequest(`${BASE_URL}`);
 }
+
+export function getTrip(id) {
+  return sendRequest(`${BASE_URL}/${id}`);
+}

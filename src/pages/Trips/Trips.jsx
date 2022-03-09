@@ -3,7 +3,8 @@ import TripCard from "../../components/TripCard/TripCard";
 import { useState, useEffect } from "react";
 
 const Trips = () => {
-  const [trips, setTrips] = useState([]);
+  let tripCards = [];
+  const [trips, setTrips] = useState(null);
   useEffect(() => {
     const getTrips = async () => {
       const usersTrips = await tripsAPI.getTrips();
@@ -11,6 +12,10 @@ const Trips = () => {
     };
     getTrips();
   }, []);
+
+  if (trips) {
+    tripCards = trips.map((trip, idx) => <TripCard trip={trip} key={idx} />);
+  }
 
   return (
     <main>
@@ -26,7 +31,7 @@ const Trips = () => {
         }}
       >
         Your submitted Trips
-        <TripCard trip={trips} />
+        {trips && tripCards}
       </aside>
       <br />
       <div style={{ border: "1px solid black", width: "50%", float: "right" }}>

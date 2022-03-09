@@ -7,6 +7,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import Home from "../Home/Home";
 import Trips from "../Trips/Trips";
 import NewTrip from "../NewTrip/NewTrip";
+import TripDetail from "../../pages/TripDetail/TripDetail";
 
 export default function App() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function App() {
           <>
             <Route path="/trips" element={<Trips user={user} />} />
             <Route path="/trips/new" element={<NewTrip user={user} />} />
+            <Route path="/trips/:id" element={<TripDetail user={user} />} />
           </>
         )}
       </Routes>
