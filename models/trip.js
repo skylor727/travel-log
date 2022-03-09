@@ -9,7 +9,7 @@ const activitySchema = new Schema({
 
 const tripSchema = new Schema(
   {
-    createdBy: { type: Schema.Types.ObjectId, ref: "User" },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
     location: { type: String, required: true },
     tripCost: { type: Number, required: true },
     images: Array,

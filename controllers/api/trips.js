@@ -1,11 +1,12 @@
 const Models = require("../../models/trip");
+const User = require("../../models/user");
 const Trip = Models.Trip;
 
 const create = async (req, res) => {
   try {
     const tripCost = parseInt(req.body.cost);
     const newTrip = await new Trip({
-      createdBy: req.user._id,
+      user: req.user._id,
       location: req.body.location,
       images: req.body.images,
       date: req.body.date,
@@ -28,8 +29,12 @@ const create = async (req, res) => {
 
 const index = async (req, res) => {
   try {
-    const trips = await Trip.find({ createdBy: req.user._id });
-    res.json(trips);
+    Trip.find({ user: req.user._id })
+      .populate("user")
+      .exec((err, trips) => {
+        if (err) res.send(err);
+        res.json(trips);
+      });
   } catch (err) {
     res.send(err);
   }

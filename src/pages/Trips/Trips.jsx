@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 const Trips = () => {
   const [trips, setTrips] = useState(null);
-
   useEffect(() => {
     const getTrips = async () => {
       const usersTrips = await tripsAPI.getTrips();
@@ -27,7 +26,7 @@ const Trips = () => {
         }}
       >
         Your submitted Trips
-        <TripCard trip={trips[0]} />
+        <TripCard trip={trips} />
       </aside>
       <br />
       <div style={{ border: "1px solid black", width: "50%", float: "right" }}>
