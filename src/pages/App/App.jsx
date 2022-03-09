@@ -4,9 +4,9 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
 import Auth from "../AuthPage/AuthPage";
 import NavBar from "../../components/NavBar/NavBar";
-import Home from "../../pages/Home/Home";
-import Trips from "../../pages/Trips/Trips";
-import NewTrip from "../../pages/NewTrip/NewTrip";
+import Home from "../Home/Home";
+import Trips from "../Trips/Trips";
+import NewTrip from "../NewTrip/NewTrip";
 
 export default function App() {
   const navigate = useNavigate();
@@ -26,8 +26,12 @@ export default function App() {
           path="/login"
           element={<Auth setUser={setUser} routeChange={routeChange} />}
         />
-        <Route path="/trips" element={<Trips />} />
-        <Route path="/trips/new" element={<NewTrip />} />
+        {user && (
+          <>
+            <Route path="/trips" element={<Trips user={user} />} />
+            <Route path="/trips/new" element={<NewTrip user={user} />} />
+          </>
+        )}
       </Routes>
     </main>
   );

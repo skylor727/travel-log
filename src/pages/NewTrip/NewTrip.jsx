@@ -13,7 +13,7 @@ async function postImage({ image, description }) {
   return result.data;
 }
 
-const NewTrip = () => {
+const NewTrip = ({ user }) => {
   const [file, setFile] = useState();
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
@@ -42,7 +42,7 @@ const NewTrip = () => {
     evt.preventDefault();
     formData.activities = activities;
     formData.images = images;
-    tripsAPI.createTrip(formData);
+    tripsAPI.createTrip(formData, user);
     setFormData({
       location: "",
       cost: "",

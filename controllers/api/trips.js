@@ -1,11 +1,11 @@
 const Models = require("../../models/trip");
 const Trip = Models.Trip;
 
-
 const create = async (req, res) => {
   try {
     const tripCost = parseInt(req.body.cost);
     const newTrip = await new Trip({
+      createdBy: req.user._id,
       location: req.body.location,
       images: req.body.images,
       date: req.body.date,
@@ -22,7 +22,7 @@ const create = async (req, res) => {
     });
     newTrip.save();
   } catch (err) {
-    console.log(err);
+    res.send(err);
   }
 };
 
