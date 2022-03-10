@@ -12,6 +12,11 @@ const TripDetail = ({ user, routeChange }) => {
     routeChange("/trips");
   };
 
+  const handleUpdate = async (id) => {
+    const updatedTrip = await tripsAPI.handleUpdate(id);
+    console.log(updatedTrip)
+  }
+
   useEffect(() => {
     const getTrip = async () => {
       const trip = await tripsAPI.getTrip(id);
@@ -25,7 +30,10 @@ const TripDetail = ({ user, routeChange }) => {
       <h1>Trip Detail</h1>
       {trip && <TripCard trip={trip} />}
       {trip && trip.user._id === user._id && (
-        <button onClick={() => handleDelete(id)}>Delete</button>
+        <>
+          <button onClick={() => handleDelete(id)}>Delete</button>
+          <button onClick={() => handleUpdate(id)}>Edit</button>
+        </>
       )}
     </>
   );

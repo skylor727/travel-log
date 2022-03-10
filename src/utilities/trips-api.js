@@ -17,3 +17,7 @@ export function getTrip(id) {
 export function handleDelete(id) {
   return sendRequest(`${BASE_URL}/${id}`, "DELETE");
 }
+
+export function handleUpdate(id){
+  return sendRequest(`${BASE_URL}/${id}`)
+}

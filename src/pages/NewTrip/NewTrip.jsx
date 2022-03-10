@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
 import Modal from "../../components/Modal/Modal";
-import AcivityCard from "../../components/ActivityCard/ActivityCard";
+import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import "./NewTrip.css";
 import apiPostImage from "../../utilities/photos-api";
 
@@ -57,7 +57,7 @@ const NewTrip = ({ user }) => {
   };
 
   const activityCards = activities.map((activity, idx) => (
-    <AcivityCard key={idx} activity={activity} />
+    <ActivityCard key={idx} activity={activity} />
   ));
 
   return (
