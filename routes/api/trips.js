@@ -7,8 +7,10 @@ router.get("/", tripsCtrl.index);
 
 router.post("/new", tripsCtrl.create);
 
-router.get("/:id", tripsCtrl.show);
-
 router.delete("/:id", tripsCtrl.delete);
+
+router.post("/:id", tripsCtrl.update);
+
+router.get("/:id", tripsCtrl.show);
 
 module.exports = router;

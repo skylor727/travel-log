@@ -5,6 +5,7 @@ const Trip = Models.Trip;
 //Creating a new Trip
 const create = async (req, res) => {
   try {
+    console.log('create hit');
     const tripCost = parseInt(req.body.cost);
     const newTrip = await new Trip({
       user: req.user._id,
@@ -63,4 +64,14 @@ const deleteTrip = async (req, res) => {
     res.send(err);
   }
 };
-module.exports = { create, index, show, delete: deleteTrip };
+
+//Update a trip
+const update = async (req, res) => {
+  console.log('update hit');
+  try {
+    console.log(req.body);
+  } catch (err) {
+    res.send(err);
+  }
+};
+module.exports = { create, index, show, delete: deleteTrip, update };

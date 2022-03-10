@@ -27,8 +27,9 @@ const TripForm = ({ user, editData, upOrDel }) => {
   });
 
   //Updating an existing trip
-  const handleUpdate = async (id) => {
-    const updatedTrip = await tripsAPI.handleUpdate(id);
+  const handleUpdate = async (evt, editData) => {
+    evt.preventDefault();
+    const updatedTrip = await tripsAPI.handleUpdate(editData);
     console.log(updatedTrip);
   };
 
@@ -90,10 +91,12 @@ const TripForm = ({ user, editData, upOrDel }) => {
       )}
       <form
         className="trip-form"
-        //If a value was passed into upOrDel 
+        //If a value was passed into upOrDel
         //we can assume that we are updating a trip rather than creating a new one
         //If none was passed we can assume we are creating
-        onSubmit={() => (upOrDel ? handleNew() : handleUpdate(editData._id))}
+        onSubmit={(evt) =>
+          upOrDel ? handleUpdate(evt, editData) : handleNew(evt)
+        } //() => upOrDel ? handleUpdate(editData._id) : handleNew()
       >
         <div className="form-wrapper">
           <label htmlFor="">

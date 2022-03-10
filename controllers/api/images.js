@@ -1,13 +1,12 @@
 const uploadFile = require("../../config/s3");
 
 const upload = async (req, res) => {
-  const description = req.body.description;
-  const result = await uploadFile(req.file);
-  const data = {
-    description,
-    result: result.Location,
-  };
-  res.send(data);
+  try {
+    const result = await uploadFile(req.file);
+    res.send(result.Location);
+  } catch (err) {
+    res.send(err);
+  }
 };
 
 module.exports = { upload };

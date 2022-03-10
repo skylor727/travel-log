@@ -23,6 +23,6 @@ export function handleDelete(id) {
 }
 
 //Send request to backend to update
-export function handleUpdate(id){
-  return sendRequest(`${BASE_URL}/${id}`)
+export function handleUpdate(editData) {
+  return sendRequest(`${BASE_URL}/${editData._id}`, "POST", editData);
 }
