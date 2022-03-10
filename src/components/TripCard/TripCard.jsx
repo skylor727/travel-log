@@ -1,10 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import ActivityCard from "../ActivityCard/ActivityCard";
 import DetailedActivityCard from "../DetailedActivityCard/DetailedActivityCard";
-const TripCard = ({ trip }) => {
+const TripCard = ({ trip, currentUser }) => {
   let activityCards = [];
   let detailedActivityCards = [];
-
   const { user, activities, date, images, location, tripCost } = trip;
   activityCards = activities.map((activity, idx) => (
     <ActivityCard activity={activity} key={idx} />

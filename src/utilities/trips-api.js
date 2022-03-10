@@ -13,3 +13,7 @@ export function getTrips() {
 export function getTrip(id) {
   return sendRequest(`${BASE_URL}/${id}`);
 }
+
+export function handleDelete(id) {
+  return sendRequest(`${BASE_URL}/${id}`, "DELETE");
+}
