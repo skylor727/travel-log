@@ -2,6 +2,7 @@ const Models = require("../../models/trip");
 const User = require("../../models/user");
 const Trip = Models.Trip;
 
+//Creating a new Trip
 const create = async (req, res) => {
   try {
     const tripCost = parseInt(req.body.cost);
@@ -12,7 +13,7 @@ const create = async (req, res) => {
       date: req.body.date,
       tripCost,
     }).save();
-
+    //Pushing activity subdocuments into the trip documents activities property
     req.body.activities.forEach(async (activity) => {
       price = parseInt(activity.price);
       newTrip.activities.push({
@@ -28,6 +29,7 @@ const create = async (req, res) => {
 };
 
 const index = async (req, res) => {
+  //Split trips into user and all to avoid multiple queries
   const trips = {
     userTrips: null,
     allTrips: null,
@@ -43,6 +45,7 @@ const index = async (req, res) => {
   }
 };
 
+//Find a single trip to show
 const show = async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.id).populate("user").exec();
@@ -52,6 +55,7 @@ const show = async (req, res) => {
   }
 };
 
+//Delete a single trip
 const deleteTrip = async (req, res) => {
   try {
     await Trip.findOneAndDelete({ _id: req.params.id });

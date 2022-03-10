@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
 import Modal from "../Modal/Modal";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
-import "./TripForm.css";
 import apiPostImage from "../../utilities/photos-api";
+import "./TripForm.css";
 
 async function postImage({ image, description }) {
   const formData = new FormData();
@@ -13,9 +13,8 @@ async function postImage({ image, description }) {
   return result.data;
 }
 
-const TripForm = ({ user, editData }) => {
+const TripForm = ({ user, editData, upOrDel }) => {
   const [file, setFile] = useState();
-  const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [activities, setActivities] = useState([]);
@@ -27,18 +26,27 @@ const TripForm = ({ user, editData }) => {
     date: "",
   });
 
+  //Updating an existing trip
+  const handleUpdate = async (id) => {
+    const updatedTrip = await tripsAPI.handleUpdate(id);
+    console.log(updatedTrip);
+  };
+
+  //Uploading the image to the server
   const submit = async (evt) => {
     evt.preventDefault();
-    const result = await postImage({ image: file, description });
+    const result = await postImage({ image: file });
     setImages([result.result, ...images]);
   };
 
+  //Selecting an image in the upload
   const fileSelected = (evt) => {
     const file = evt.target.files[0];
     setFile(file);
   };
 
-  const handleSubmit = (evt) => {
+  //Handle creating a new trip
+  const handleNew = (evt) => {
     evt.preventDefault();
     formData.activities = activities;
     formData.images = images;
@@ -52,6 +60,7 @@ const TripForm = ({ user, editData }) => {
     });
   };
 
+  //Setting the form data state as the user types it
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
@@ -59,6 +68,16 @@ const TripForm = ({ user, editData }) => {
   const activityCards = activities.map((activity, idx) => (
     <ActivityCard key={idx} activity={activity} />
   ));
+
+  //If edit data exists pre-fill the form with the data
+  useEffect(() => {
+    if (editData) {
+      const getExistingData = async () => setFormData(editData);
+      getExistingData();
+      setActivities(formData.activities);
+    }
+  }, [formData]);
+
   return (
     <>
       <h1>Trip Form</h1>
@@ -69,7 +88,13 @@ const TripForm = ({ user, editData }) => {
           setOpenModal={setOpenModal}
         />
       )}
-      <form className="trip-form" onSubmit={handleSubmit}>
+      <form
+        className="trip-form"
+        //If a value was passed into upOrDel 
+        //we can assume that we are updating a trip rather than creating a new one
+        //If none was passed we can assume we are creating
+        onSubmit={() => (upOrDel ? handleNew() : handleUpdate(editData._id))}
+      >
         <div className="form-wrapper">
           <label htmlFor="">
             Location:

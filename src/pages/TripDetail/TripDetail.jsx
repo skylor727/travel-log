@@ -8,17 +8,13 @@ const TripDetail = ({ user, routeChange }) => {
   const [trip, setTrip] = useState(null);
   const [showButton, setShowButton] = useState(null);
   const { id } = useParams();
-
+  //Delete the trip
   const handleDelete = async (id) => {
     tripsAPI.handleDelete(id);
     routeChange("/trips");
   };
 
-  const handleUpdate = async (id) => {
-    const updatedTrip = await tripsAPI.handleUpdate(id);
-    console.log(updatedTrip);
-  };
-
+  //Fetching the trip for the DB on initial load
   useEffect(() => {
     const getTrip = async () => {
       const trip = await tripsAPI.getTrip(id);
@@ -30,6 +26,8 @@ const TripDetail = ({ user, routeChange }) => {
   return (
     <>
       <h1>Trip Detail</h1>
+      {/* Make sure trip has been set before rendering, and only render edit and delete
+      if current user === the user who created teh trip */}
       {trip && <TripCard trip={trip} />}
       {trip && trip.user._id === user._id && (
         <>
@@ -37,7 +35,8 @@ const TripDetail = ({ user, routeChange }) => {
           <button onClick={() => setShowButton(showButton ? null : true)}>
             Edit
           </button>
-          {showButton && <TripForm />}
+          {/* If edit button is hit show the trip form */}
+          {showButton && trip && <TripForm upOrDel="update" editData={trip} />}
         </>
       )}
     </>
