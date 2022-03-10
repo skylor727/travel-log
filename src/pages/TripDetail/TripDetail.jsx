@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
-import DetailedActivityCard from "../../components/DetailedActivityCard/DetailedActivityCard";
 import TripCard from "../../components/TripCard/TripCard";
 
-const handleDelete = (id) => {
-  tripsAPI.handleDelete(id);
-};
-const TripDetail = ({ user }) => {
+const TripDetail = ({ user, routeChange }) => {
   const [trip, setTrip] = useState(null);
   const { id } = useParams();
+
+  const handleDelete = async (id) => {
+    tripsAPI.handleDelete(id);
+    routeChange("/trips");
+  };
 
   useEffect(() => {
     const getTrip = async () => {

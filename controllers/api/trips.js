@@ -54,8 +54,9 @@ const show = async (req, res) => {
 
 const deleteTrip = async (req, res) => {
   try {
-    const trip = await Trip.findById(req.params.id);
-    console.log(trip);
-  } catch (err) {}
+    await Trip.findOneAndDelete({ _id: req.params.id });
+  } catch (err) {
+    res.send(err);
+  }
 };
 module.exports = { create, index, show, delete: deleteTrip };

@@ -12,8 +12,7 @@ import TripDetail from "../../pages/TripDetail/TripDetail";
 export default function App() {
   const navigate = useNavigate();
 
-  const routeChange = () => {
-    let path = `/`;
+  const routeChange = (path) => {
     navigate(path);
   };
 
@@ -32,7 +31,10 @@ export default function App() {
           <>
             <Route path="/trips" element={<Trips user={user} />} />
             <Route path="/trips/new" element={<NewTrip user={user} />} />
-            <Route path="/trips/:id" element={<TripDetail user={user} />} />
+            <Route
+              path="/trips/:id"
+              element={<TripDetail routeChange={routeChange} user={user} />}
+            />
           </>
         )}
       </Routes>

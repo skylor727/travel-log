@@ -21,7 +21,7 @@ const TripCard = ({ trip, currentUser }) => {
         <p>Est Cost: ${tripCost}</p>
         {Object.keys(params).length ? (
           <>
-            <span>Activies:</span>
+            <span>Activities:</span>
             {detailedActivityCards}
           </>
         ) : (

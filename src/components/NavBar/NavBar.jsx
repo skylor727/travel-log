@@ -6,7 +6,7 @@ export default function NavBar({ user, setUser, routeChange }) {
   function handleLogOut() {
     userService.logOut();
     setUser(null);
-    routeChange();
+    routeChange('/');
   }
 
   return (
