@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
-import Modal from "../Modal/Modal";
+import BasicModal from "../BasicModal/BasicModal";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import apiPostImage from "../../utilities/photos-api";
 import "./TripForm.css";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import RowingIcon from "@mui/icons-material/Rowing";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
 
 async function postImage({ image, description }) {
   const formData = new FormData();
@@ -31,7 +36,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
     evt.preventDefault();
     const result = await postImage({ image: file });
     setImages([result, ...images]);
-    console.log(images);
   };
 
   //Selecting an image in the upload
@@ -62,7 +66,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
       activities: [],
       date: "",
     });
-    setActivities([])
+    setActivities([]);
   };
 
   //Setting the form data state as the user types it
@@ -95,69 +99,78 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
     <>
       <h1>Trip Form</h1>
       {openModal && (
-        <Modal
+        <BasicModal
           activities={activities}
           setActivities={setActivities}
           setOpenModal={setOpenModal}
         />
       )}
-      <form
-        className="trip-form"
-        //If a value was passed into upOrDel
-        //we can assume that we are updating a trip rather than creating a new one
-        //If none was passed we can assume we are creating
-        onSubmit={(evt) =>
-          upOrDel ? handleUpdate(evt, formData) : handleNew(evt)
-        } //() => upOrDel ? handleUpdate(editData._id) : handleNew()
-      >
-        <div className="form-wrapper">
-          <label htmlFor="">
-            Location:
-            <input
-              value={formData.location}
-              onChange={handleChange}
-              name="location"
-              type="text"
-            />
-          </label>
-          <label htmlFor="">
-            Total Cost:
-            <input
-              value={formData.price}
-              onChange={handleChange}
-              name="cost"
-              type="number"
-              required
-            />
-          </label>
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <Stack
+          style={{ width: "40%" }}
+          component="form"
+          autoComplete="off"
+          //If a value was passed into upOrDel
+          //we can assume that we are updating a trip rather than creating a new one
+          //If none was passed we can assume we are creating
+          onSubmit={(evt) =>
+            upOrDel ? handleUpdate(evt, formData) : handleNew(evt)
+          } //() => upOrDel ? handleUpdate(editData._id) : handleNew()
+          spacing={2}
+        >
+          <TextField
+            required
+            label="Trip Destination"
+            variant="outlined"
+            value={formData.location}
+            onChange={handleChange}
+            name="location"
+          />
+
+          <TextField
+            required
+            label="Trip Cost"
+            value={formData.price}
+            onChange={handleChange}
+            name="cost"
+            type="number"
+          />
+
+          <TextField
+            value={formData.date}
+            onChange={handleChange}
+            name="date"
+            type="date"
+            required
+          />
           <span>
             Activities:
             {activityCards}
             <br />
-            <button
-              type="button"
-              onClick={() => {
-                setOpenModal(true);
-              }}
-            >
-              Activity Form
-            </button>
           </span>
-
-          <label htmlFor="">
-            Trip Date:
-            <input
-              value={formData.date}
-              onChange={handleChange}
-              name="date"
-              type="date"
-              required
-            />
-          </label>
-        </div>
-        {!openModal && <button type="submit">Submit</button>}
-      </form>
-
+          <Button
+            endIcon={<RowingIcon />}
+            size="small"
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              setOpenModal(true);
+            }}
+          >
+            Activity Form
+          </Button>
+          {!openModal && (
+            <Button
+              endIcon={<SendIcon />}
+              color="primary"
+              variant="contained"
+              type="submit"
+            >
+              Submit
+            </Button>
+          )}
+        </Stack>
+      </div>
       <h2>Images</h2>
       <form onSubmit={submit}>
         <input onChange={fileSelected} type="file" accept="image/*"></input>
