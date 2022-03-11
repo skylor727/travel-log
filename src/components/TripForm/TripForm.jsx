@@ -30,7 +30,8 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
   const submit = async (evt) => {
     evt.preventDefault();
     const result = await postImage({ image: file });
-    setImages([result.result, ...images]);
+    setImages([result, ...images]);
+    console.log(images);
   };
 
   //Selecting an image in the upload
@@ -43,6 +44,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
   const handleUpdate = async (evt) => {
     evt.preventDefault();
     formData.activities = activities;
+    formData.images = images;
     const updatedTrip = await tripsAPI.handleUpdate(formData, editData._id);
     setTrip(updatedTrip);
   };
@@ -158,8 +160,8 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
         <input onChange={fileSelected} type="file" accept="image/*"></input>
         <button type="submit">Upload Photo</button>
       </form>
-      {images.map((image) => (
-        <div key={image}>
+      {images.map((image, idx) => (
+        <div key={idx}>
           <img src={image}></img>
         </div>
       ))}

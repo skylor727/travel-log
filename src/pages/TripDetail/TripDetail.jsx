@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
 import TripCard from "../../components/TripCard/TripCard";
 import TripForm from "../../components/TripForm/TripForm";
+import ImageCard from "../../components/ImageCard/ImageCard";
 
 const TripDetail = ({ user, routeChange }) => {
   const [trip, setTrip] = useState(null);
@@ -28,15 +29,13 @@ const TripDetail = ({ user, routeChange }) => {
     <>
       <h1>Trip Detail</h1>
       {/* Make sure trip has been set before rendering, and only render edit and delete
-      if current user === the user who created teh trip */}
-      {trip && <TripCard trip={trip} />}
+      if current user === the user who created the trip */}
       {trip && trip.user._id === user._id && (
         <>
           <button onClick={() => handleDelete(id)}>Delete</button>
           <button onClick={() => setShowButton(showButton ? null : true)}>
             Edit
           </button>
-          {/* If edit button is hit show the trip form */}
           {showButton && trip && (
             <TripForm
               setTrip={setTrip}
@@ -45,6 +44,13 @@ const TripDetail = ({ user, routeChange }) => {
               editData={trip}
             />
           )}
+          {trip && (
+            <>
+              <TripCard trip={trip} />
+              <ImageCard images={trip.images} />
+            </>
+          )}
+          {/* If edit button is hit show the trip form */}
         </>
       )}
     </>
