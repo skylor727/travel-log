@@ -44,6 +44,7 @@ const Modal = ({ setOpenModal, activities, setActivities }) => {
                 value={formData.title}
                 onChange={handleChange}
                 type="text"
+                required
               />
             </label>
             <label htmlFor="">
@@ -52,6 +53,7 @@ const Modal = ({ setOpenModal, activities, setActivities }) => {
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
+                required
               />
             </label>
             <label htmlFor="">
@@ -61,6 +63,7 @@ const Modal = ({ setOpenModal, activities, setActivities }) => {
                 value={formData.price}
                 onChange={handleChange}
                 type="number"
+                required
               />
             </label>
           </div>

@@ -1,6 +1,5 @@
 const ImageCard = ({ images }) => {
-  console.log(images);
-  const imageEls = images.map((img) => <img src={img}></img>);
+  const imageEls = images.map((image, idx) => <img key={idx} src={image}></img>);
   return (
     <>
       <h1>Image Card</h1>

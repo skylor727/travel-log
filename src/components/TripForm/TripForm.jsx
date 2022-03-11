@@ -57,11 +57,12 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
     tripsAPI.createTrip(formData, user);
     setFormData({
       location: "",
-      cost: "",
+      price: "",
       images: "",
       activities: [],
       date: "",
     });
+    setActivities([])
   };
 
   //Setting the form data state as the user types it
@@ -126,6 +127,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
               onChange={handleChange}
               name="cost"
               type="number"
+              required
             />
           </label>
           <span>
@@ -149,6 +151,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
               onChange={handleChange}
               name="date"
               type="date"
+              required
             />
           </label>
         </div>

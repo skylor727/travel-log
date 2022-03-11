@@ -71,7 +71,7 @@ const update = async (req, res) => {
     //Filter existing activities by putting them into a set then converting them back
     const set = new Set(req.body.activities);
     const activities = Array.from(set);
-    console.log(req.body);
+  
     trip.user = req.user._id;
     trip.location = req.body.location;
     trip.date = req.body.date;
