@@ -13,7 +13,7 @@ async function postImage({ image, description }) {
   return result.data;
 }
 
-const TripForm = ({ user, editData, upOrDel }) => {
+const TripForm = ({ user, editData, upOrDel, setTrip }) => {
   const [file, setFile] = useState();
   const [images, setImages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -26,13 +26,6 @@ const TripForm = ({ user, editData, upOrDel }) => {
     date: "",
   });
 
-  //Updating an existing trip
-  const handleUpdate = async (evt, editData) => {
-    evt.preventDefault();
-    const updatedTrip = await tripsAPI.handleUpdate(editData);
-    console.log(updatedTrip);
-  };
-
   //Uploading the image to the server
   const submit = async (evt) => {
     evt.preventDefault();
@@ -44,6 +37,14 @@ const TripForm = ({ user, editData, upOrDel }) => {
   const fileSelected = (evt) => {
     const file = evt.target.files[0];
     setFile(file);
+  };
+
+  //Updating an existing trip
+  const handleUpdate = async (evt) => {
+    evt.preventDefault();
+    formData.activities = activities;
+    const updatedTrip = await tripsAPI.handleUpdate(formData, editData._id);
+    setTrip(updatedTrip);
   };
 
   //Handle creating a new trip
@@ -73,11 +74,19 @@ const TripForm = ({ user, editData, upOrDel }) => {
   //If edit data exists pre-fill the form with the data
   useEffect(() => {
     if (editData) {
-      const getExistingData = async () => setFormData(editData);
+      const getExistingData = () =>
+        setFormData({
+          location: editData.location,
+          date: editData.date,
+          activities: editData.activities,
+          cost: editData.tripCost,
+          user: editData.user,
+          images: editData.images,
+        });
       getExistingData();
       setActivities(formData.activities);
     }
-  }, [formData]);
+  }, []);
 
   return (
     <>
@@ -95,7 +104,7 @@ const TripForm = ({ user, editData, upOrDel }) => {
         //we can assume that we are updating a trip rather than creating a new one
         //If none was passed we can assume we are creating
         onSubmit={(evt) =>
-          upOrDel ? handleUpdate(evt, editData) : handleNew(evt)
+          upOrDel ? handleUpdate(evt, formData) : handleNew(evt)
         } //() => upOrDel ? handleUpdate(editData._id) : handleNew()
       >
         <div className="form-wrapper">
@@ -147,7 +156,7 @@ const TripForm = ({ user, editData, upOrDel }) => {
       <h2>Images</h2>
       <form onSubmit={submit}>
         <input onChange={fileSelected} type="file" accept="image/*"></input>
-        <button type="submit">Submit</button>
+        <button type="submit">Upload Photo</button>
       </form>
       {images.map((image) => (
         <div key={image}>

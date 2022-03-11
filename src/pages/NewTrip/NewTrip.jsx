@@ -5,7 +5,7 @@ const NewTrip = ({user}) => {
   return (
     <>
       <h1>New Trip Page</h1>
-      <TripForm />
+      <TripForm user={user}/>
     </>
   );
 };

@@ -5,7 +5,6 @@ const Trip = Models.Trip;
 //Creating a new Trip
 const create = async (req, res) => {
   try {
-    console.log('create hit');
     const tripCost = parseInt(req.body.cost);
     const newTrip = await new Trip({
       user: req.user._id,
@@ -67,9 +66,27 @@ const deleteTrip = async (req, res) => {
 
 //Update a trip
 const update = async (req, res) => {
-  console.log('update hit');
   try {
-    console.log(req.body);
+    const trip = await Trip.findById(req.params.id);
+    //Filter existing activities by putting them into a set then converting them back
+    const set = new Set(req.body.activities);
+    const activities = Array.from(set);
+
+    trip.user = req.user._id;
+    trip.location = req.body.location;
+    trip.images = req.body.images;
+    trip.date = req.body.date;
+    trip.tripCost = req.body.cost;
+    activities.forEach((activity) => {
+      price = parseInt(activity.price);
+      trip.activities.push({
+        title: activity.title,
+        description: activity.description,
+        price,
+      });
+    });
+    await trip.save();
+    res.json(trip);
   } catch (err) {
     res.send(err);
   }

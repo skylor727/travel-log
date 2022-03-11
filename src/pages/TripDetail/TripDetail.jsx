@@ -8,6 +8,7 @@ const TripDetail = ({ user, routeChange }) => {
   const [trip, setTrip] = useState(null);
   const [showButton, setShowButton] = useState(null);
   const { id } = useParams();
+
   //Delete the trip
   const handleDelete = async (id) => {
     tripsAPI.handleDelete(id);
@@ -36,7 +37,14 @@ const TripDetail = ({ user, routeChange }) => {
             Edit
           </button>
           {/* If edit button is hit show the trip form */}
-          {showButton && trip && <TripForm upOrDel="update" editData={trip} />}
+          {showButton && trip && (
+            <TripForm
+              setTrip={setTrip}
+              user={user}
+              upOrDel="update"
+              editData={trip}
+            />
+          )}
         </>
       )}
     </>
