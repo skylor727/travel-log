@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import RowingIcon from "@mui/icons-material/Rowing";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 async function postImage({ image, description }) {
   const formData = new FormData();
@@ -97,7 +98,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
 
   return (
     <>
-      <h1>Trip Form</h1>
       {openModal && (
         <BasicModal
           activities={activities}
@@ -106,7 +106,14 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
           openModal={openModal}
         />
       )}
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          color: "white",
+        }}
+      >
         <Stack
           style={{ width: "40%" }}
           component="form"
@@ -119,7 +126,9 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
           } //() => upOrDel ? handleUpdate(editData._id) : handleNew()
           spacing={2}
         >
+          <h1>Trip Form</h1>
           <TextField
+            sx={{ color: "red" }}
             required
             label="Trip Destination"
             variant="outlined"

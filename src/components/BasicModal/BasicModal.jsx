@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import "./Modal.css";
 
 const style = {
+  color: "black",
   position: "absolute",
   top: "50%",
   left: "50%",
