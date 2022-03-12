@@ -24,47 +24,22 @@ export default function NavBar({ user, setUser, routeChange }) {
     routeChange("/");
   }
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Button
-            component={Link}
-            to={"/"}
-            onClick={handleCloseNavMenu}
-            sx={{ color: "white" }}
-          >
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              Trip Log
-            </Typography>
-          </Button>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -90,21 +65,60 @@ export default function NavBar({ user, setUser, routeChange }) {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {user ? (
+                <>
+                  <MenuItem
+                    component={Link}
+                    to={"/trips"}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography textAlign="center">Trips</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to={"/trips/new"}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography textAlign="center">New Trip</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to={"/"}
+                    onClick={() => {
+                      handleCloseNavMenu();
+                      handleLogOut();
+                    }}
+                  >
+                    <Typography textAlign="center">Log Out</Typography>
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem
+                  component={Link}
+                  to={"/login"}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Typography textAlign="center">Login</Typography>
                 </MenuItem>
-              ))}
+              )}
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          <Button
+            component={Link}
+            to={"/"}
+            onClick={handleCloseNavMenu}
+            sx={{ color: "white" }}
           >
-            Trip Log
-          </Typography>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { md: "flex" } }}
+            >
+              Trip Log
+            </Typography>
+          </Button>
+
           {user ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -132,7 +146,11 @@ export default function NavBar({ user, setUser, routeChange }) {
                   handleLogOut();
                   handleCloseNavMenu();
                 }}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: { xs: "none", md: "flex" },
+                }}
               >
                 Log Out
               </Button>
@@ -141,11 +159,12 @@ export default function NavBar({ user, setUser, routeChange }) {
             <Button
               component={Link}
               to={"/login"}
-              onClick={() => {
-                handleLogOut();
-                handleCloseNavMenu();
+              onClick={handleCloseNavMenu}
+              sx={{
+                my: 2,
+                color: "white",
+                display: { xs: "none", md: "flex" },
               }}
-              sx={{ my: 2, color: "white", display: "block" }}
             >
               Log In
             </Button>
@@ -153,23 +172,5 @@ export default function NavBar({ user, setUser, routeChange }) {
         </Toolbar>
       </Container>
     </AppBar>
-    // <nav>
-    //   {user ? (
-    //     <>
-    //       <span>Welcome {user.name}</span> &nbsp; | &nbsp;
-    //       <Link to="/">Home</Link>
-    //       &nbsp; | &nbsp;
-    //       <Link to="/trips">Trips </Link>
-    //       &nbsp; | &nbsp;
-    //       <Link to="/trips/new">New Trip</Link>
-    //       &nbsp; | &nbsp;
-    //       <Link to="/" onClick={handleLogOut}>
-    //         Logout
-    //       </Link>
-    //     </>
-    //   ) : (
-    //     <Link to="/login">Login </Link>
-    //   )}
-    // </nav>
   );
 }
