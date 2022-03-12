@@ -41,6 +41,7 @@ export default class SignUpForm extends Component {
     const disable = this.state.password !== this.state.confirm;
     return (
       <>
+      <h1>Sign Up</h1>
         <Box
           sx={{
             display: "flex",
@@ -76,7 +77,7 @@ export default class SignUpForm extends Component {
             />
 
             <TextField
-              label="password"
+              label="Password"
               type="password"
               name="password"
               value={this.state.password}
@@ -96,7 +97,6 @@ export default class SignUpForm extends Component {
               endIcon={<SendIcon />}
               color="primary"
               variant="contained"
-              type="submit"
               type="submit"
               disabled={disable}
             >

@@ -7,7 +7,6 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import * as usersService from "../../utilities/users-service";
-import { CenterFocusStrong } from "@mui/icons-material";
 
 export default function LoginForm({ setUser, routeChange }) {
   const [credentials, setCredentials] = useState({
@@ -38,6 +37,7 @@ export default function LoginForm({ setUser, routeChange }) {
 
   return (
     <>
+      <h1>Log In</h1>
       <Box
         sx={{
           display: "flex",
@@ -76,6 +76,7 @@ export default function LoginForm({ setUser, routeChange }) {
             color="primary"
             variant="contained"
             type="submit"
+            disabled={credentials.email && credentials.password ? false : true}
           >
             LOG IN
           </Button>

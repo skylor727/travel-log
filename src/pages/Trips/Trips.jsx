@@ -26,23 +26,13 @@ const Trips = ({ user }) => {
   }
 
   return (
-    <main>
-      <h1>Trips</h1>
-      <div>All Trips</div>
-      <aside
-        style={{
-          display: "block",
-          float: "left",
-          border: "1px solid black",
-          height: "100vh",
-          width: "30%",
-        }}
-      >
-        Your submitted Trips
+    <main style={{ display: "flex", height: "100vh" }}>
+      <aside style={{ width: "20%" }}>
+        <h1>My Trips</h1>
         {userTrips && userTripCards}
       </aside>
-      <br />
-      <div style={{ border: "1px solid black", width: "50%", float: "right" }}>
+      <div style={{ width: "50%" }}>
+        <h1>All Trips</h1>
         {tripCards}
       </div>
     </main>

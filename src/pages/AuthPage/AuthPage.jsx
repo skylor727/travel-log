@@ -6,10 +6,8 @@ import LoginForm from "../../pages/LoginForm/LoginForm";
 
 export default function AuthPage({ setUser, routeChange }) {
   const [showLogin, setShowLogin] = useState(true);
-
   return (
     <main>
-      <h1>Login</h1>
       {showLogin ? (
         <LoginForm setUser={setUser} routeChange={routeChange} />
       ) : (
