@@ -103,6 +103,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
           activities={activities}
           setActivities={setActivities}
           setOpenModal={setOpenModal}
+          openModal={openModal}
         />
       )}
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
