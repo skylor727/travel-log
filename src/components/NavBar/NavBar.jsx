@@ -109,12 +109,7 @@ export default function NavBar({ user, setUser, routeChange }) {
             onClick={handleCloseNavMenu}
             sx={{ color: "white" }}
           >
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { md: "flex" } }}
-            >
+            <Typography variant="h6" noWrap component="div" sx={{ mr: 2 }}>
               Trip Log
             </Typography>
           </Button>
@@ -163,7 +158,7 @@ export default function NavBar({ user, setUser, routeChange }) {
               sx={{
                 my: 2,
                 color: "white",
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", md: "flex", alignSelf: "flex-end" },
               }}
             >
               Log In

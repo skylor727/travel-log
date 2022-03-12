@@ -1,7 +1,13 @@
 // LoginForm.jsx
 
 import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import * as usersService from "../../utilities/users-service";
+import { CenterFocusStrong } from "@mui/icons-material";
 
 export default function LoginForm({ setUser, routeChange }) {
   const [credentials, setCredentials] = useState({
@@ -24,36 +30,58 @@ export default function LoginForm({ setUser, routeChange }) {
       // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
       setUser(user);
-      routeChange('/trips');
+      routeChange("/trips");
     } catch {
       setError("Log In Failed - Try Again");
     }
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          alignContent: "center",
+        }}
+      >
+        <Stack
+          style={{ width: "40%" }}
+          onSubmit={handleSubmit}
+          component="form"
+          autoComplete="off"
+          spacing={2}
+        >
+          <TextField
+            label="Email"
             type="text"
             name="email"
             value={credentials.email}
             onChange={handleChange}
             required
           />
-          <label>Password</label>
-          <input
+
+          <TextField
+            label="Password"
             type="password"
             name="password"
             value={credentials.password}
             onChange={handleChange}
             required
           />
-          <button type="submit">LOG IN</button>
-        </form>
-      </div>
+          <Button
+            endIcon={<SendIcon />}
+            color="primary"
+            variant="contained"
+            type="submit"
+          >
+            LOG IN
+          </Button>
+        </Stack>
+      </Box>
       <p className="error-message">&nbsp;{error}</p>
-    </div>
+    </>
   );
 }
