@@ -128,7 +128,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
         >
           <h1>Trip Form</h1>
           <TextField
-            sx={{ color: "red" }}
             required
             label="Trip Destination"
             variant="outlined"
