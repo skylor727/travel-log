@@ -58,7 +58,7 @@ const TripDetail = ({ user, routeChange }) => {
             showButton={showButton}
             setShowButton={setShowButton}
           />
-          <h2>Activities</h2>
+          {trip.activities.length > 0 && <h2>Activities</h2>}
           {detailedActivityCards}
           <ImageCard images={trip.images} />
         </>
