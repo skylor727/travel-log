@@ -7,6 +7,7 @@ const Trips = ({ user }) => {
   let tripCards = [];
   const [userTrips, setUserTrips] = useState(null);
   const [trips, setTrips] = useState(null);
+  //Fetch all trips on initial render
   useEffect(() => {
     const getTrips = async () => {
       const trips = await tripsAPI.getTrips();
@@ -16,6 +17,7 @@ const Trips = ({ user }) => {
     getTrips();
   }, []);
 
+  //Make sure the trips have been fetched before trying to map the cards
   if (trips) {
     userTripCards = userTrips.map((trip, idx) => (
       <TripCard trip={trip} currentUser={user} key={idx} />
@@ -26,11 +28,17 @@ const Trips = ({ user }) => {
   }
 
   return (
-    <main style={{ display: "flex", height: "100vh" }}>
-      <aside style={{ width: "20%" }}>
+    <main
+      style={{
+        display: "flex",
+        height: "100vh",
+        justifyContent: "space-evenly",
+      }}
+    >
+      <div style={{ width: "20%" }}>
         <h1>My Trips</h1>
         {userTrips && userTripCards}
-      </aside>
+      </div>
       <div style={{ width: "50%" }}>
         <h1>All Trips</h1>
         {tripCards}

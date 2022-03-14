@@ -4,6 +4,7 @@ import * as tripsAPI from "../../utilities/trips-api";
 import TripCard from "../../components/TripCard/TripCard";
 import TripForm from "../../components/TripForm/TripForm";
 import ImageCard from "../../components/ImageCard/ImageCard";
+import Button from "@mui/material/Button";
 
 const TripDetail = ({ user, routeChange }) => {
   const [trip, setTrip] = useState(null);
@@ -32,10 +33,11 @@ const TripDetail = ({ user, routeChange }) => {
       if current user === the user who created the trip */}
       {trip && trip.user._id === user._id && (
         <>
-          <button onClick={() => handleDelete(id)}>Delete</button>
-          <button onClick={() => setShowButton(showButton ? null : true)}>
+          <Button onClick={() => handleDelete(id)}>Delete</Button>
+          <Button onClick={() => setShowButton(showButton ? null : true)}>
             Edit
-          </button>
+          </Button>
+          {/* If edit button is hit show the trip form */}
           {showButton && trip && (
             <TripForm
               setTrip={setTrip}
@@ -50,7 +52,6 @@ const TripDetail = ({ user, routeChange }) => {
               <ImageCard images={trip.images} />
             </>
           )}
-          {/* If edit button is hit show the trip form */}
         </>
       )}
     </>
