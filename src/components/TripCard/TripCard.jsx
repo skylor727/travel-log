@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -7,11 +7,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ActivityCard from "../ActivityCard/ActivityCard";
-import DetailedActivityCard from "../DetailedActivityCard/DetailedActivityCard";
 
 const TripCard = ({
   trip,
-  currentUser,
   page,
   handleDelete,
   id,
@@ -19,15 +17,10 @@ const TripCard = ({
   showButton,
 }) => {
   let activityCards = [];
-  let detailedActivityCards = [];
   const { user, activities, date, images, location, tripCost } = trip;
 
   activityCards = activities.map((activity, idx) => (
     <ActivityCard activity={activity} key={idx} />
-  ));
-
-  detailedActivityCards = activities.map((activity, idx) => (
-    <DetailedActivityCard activity={activity} key={idx} />
   ));
 
   const card = !page ? (
@@ -53,7 +46,6 @@ const TripCard = ({
           <Typography>Trip To: {location}</Typography>
           <Typography>Trip Date: {date}</Typography>
           <Typography>Trip Cost: ${tripCost}</Typography>
-          <Typography>Activities {detailedActivityCards}</Typography>
         </CardContent>
         <CardActions>
           {trip && trip.user._id === user._id && (

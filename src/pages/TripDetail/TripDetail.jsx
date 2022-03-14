@@ -5,11 +5,13 @@ import * as tripsAPI from "../../utilities/trips-api";
 import TripCard from "../../components/TripCard/TripCard";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import Button from "@mui/material/Button";
+import DetailedActivityCard from "../../components/DetailedActivityCard/DetailedActivityCard";
 
 const TripDetail = ({ user, routeChange }) => {
   const [trip, setTrip] = useState(null);
   const { id } = useParams();
   const [showButton, setShowButton] = useState(null);
+  let detailedActivityCards = [];
 
   //Delete the trip
   const handleDelete = async (id) => {
@@ -26,6 +28,11 @@ const TripDetail = ({ user, routeChange }) => {
     getTrip();
   }, []);
 
+  if (trip) {
+    detailedActivityCards = trip.activities.map((activity, idx) => (
+      <DetailedActivityCard activity={activity} key={idx} />
+    ));
+  }
   return (
     <>
       <h1>Trip Detail</h1>
@@ -51,6 +58,8 @@ const TripDetail = ({ user, routeChange }) => {
             showButton={showButton}
             setShowButton={setShowButton}
           />
+          <h2>Activities</h2>
+          {detailedActivityCards}
           <ImageCard images={trip.images} />
         </>
       )}
