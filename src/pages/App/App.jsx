@@ -12,6 +12,7 @@ import TripDetail from "../../pages/TripDetail/TripDetail";
 export default function App() {
   const navigate = useNavigate();
 
+  //Function to easily change routes
   const routeChange = (path) => {
     navigate(path);
   };
@@ -21,16 +22,19 @@ export default function App() {
   return (
     <main className="App">
       <NavBar user={user} setUser={setUser} routeChange={routeChange} />
+      {/* Routes to show if not logged in */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
           element={<Auth setUser={setUser} routeChange={routeChange} />}
         />
+        {/* Routes to show if user is logged in */}
         {user && (
           <>
             <Route path="/trips" element={<Trips user={user} />} />
             <Route path="/trips/new" element={<NewTrip user={user} />} />
+            {/* Route to trip with specific ID */}
             <Route
               path="/trips/:id"
               element={<TripDetail routeChange={routeChange} user={user} />}
