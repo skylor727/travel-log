@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
+import * as photosAPI from "../../utilities/photos-api";
 import BasicModal from "../BasicModal/BasicModal";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
-import apiPostImage from "../../utilities/photos-api";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import RowingIcon from "@mui/icons-material/Rowing";
@@ -10,45 +10,37 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-async function postImage({ image, description }) {
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("description", description);
-  const result = await apiPostImage(formData);
-  return result.data;
-}
-
 const TripForm = ({ user, editData, upOrDel, setTrip }) => {
-  const [file, setFile] = useState();
-  const [images, setImages] = useState([]);
+  const fileInputRef = useRef();
+  const [photos, setPhotos] = useState([]);
+  const [title, setTitle] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [activities, setActivities] = useState([]);
   const [formData, setFormData] = useState({
     location: "",
     cost: "",
-    images: "",
+    photos: "",
     activities: [],
     date: "",
   });
 
-  //Uploading the image to the server
-  const submit = async (evt) => {
-    evt.preventDefault();
-    const result = await postImage({ image: file });
-    setImages([result, ...images]);
-  };
-
-  //Selecting an image in the upload
-  const fileSelected = (evt) => {
-    const file = evt.target.files[0];
-    setFile(file);
-  };
+  async function handleUpload() {
+    // Use FormData object to send the inputs in the fetch request
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_a_file
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("photo", fileInputRef.current.files[0]);
+    const newPhoto = await photosAPI.apiPostImage(formData);
+    setPhotos([newPhoto, ...photos]);
+    // Clear the description and file inputs
+    fileInputRef.current.value = "";
+  }
 
   //Updating an existing trip
   const handleUpdate = async (evt) => {
     evt.preventDefault();
     formData.activities = activities;
-    formData.images = images;
+    formData.photos = photos;
     const updatedTrip = await tripsAPI.handleUpdate(formData, editData._id);
     setTrip(updatedTrip);
   };
@@ -57,12 +49,12 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
   const handleNew = (evt) => {
     evt.preventDefault();
     formData.activities = activities;
-    formData.images = images;
+    formData.photos = photos;
     tripsAPI.createTrip(formData, user);
     setFormData({
       location: "",
       price: "",
-      images: "",
+      photos: "",
       activities: [],
       date: "",
     });
@@ -88,7 +80,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
           activities: editData.activities,
           cost: editData.tripCost,
           user: editData.user,
-          images: editData.images,
+          photos: editData.photos,
         });
       getExistingData();
       setActivities(formData.activities);
@@ -180,11 +172,14 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
         </Stack>
       </div>
       <h2>Images</h2>
-      <form onSubmit={submit}>
-        <input onChange={fileSelected} type="file" accept="image/*"></input>
-        <button type="submit">Upload Photo</button>
-      </form>
-      {images.map((image, idx) => (
+      <input type="file" ref={fileInputRef} />
+      <input
+        value={title}
+        onChange={(evt) => setTitle(evt.target.value)}
+        placeholder="Photo Title"
+      />
+      <button onClick={handleUpload}>Upload Photo</button>
+      {photos.map((image, idx) => (
         <div key={idx}>
           <img src={image}></img>
         </div>

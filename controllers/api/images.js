@@ -1,13 +1,18 @@
-const uploadFile = require("../../config/s3");
+const uploadFile = require("../../config/upload-file");
 
-const upload = async (req, res) => {
-  try {
-    const result = await uploadFile(req.file);
-    console.log(result);
-    res.send(result.Location);
-  } catch (err) {
-    res.send(err);
-  }
+module.exports = {
+  upload,
 };
 
-module.exports = { upload };
+async function upload(req, res) {
+  try {
+    if (req.file) {
+      const photoURL = await uploadFile(req.file);
+      res.json(photoURL);
+    } else {
+      throw new Error("Must select a file");
+    }
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+}
