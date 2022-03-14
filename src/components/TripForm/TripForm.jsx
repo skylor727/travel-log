@@ -3,7 +3,6 @@ import * as tripsAPI from "../../utilities/trips-api";
 import BasicModal from "../BasicModal/BasicModal";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import apiPostImage from "../../utilities/photos-api";
-import "./TripForm.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import RowingIcon from "@mui/icons-material/Rowing";
