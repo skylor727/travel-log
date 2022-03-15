@@ -1,4 +1,5 @@
-**Welcome to Travel Log**
+# Welcome to Travel Log
+
 A Full-Stack MERN CRUD application for creating a log of your trips!
 ## Screenshots
 ![Signup](https://i.imgur.com/9t7cRw7.png)
