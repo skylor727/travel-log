@@ -4,7 +4,8 @@
   width: 100%;
   height: 500px;
   background-size: cover;
-  margin-top: 20px
+  margin-top: 20px;
+  background-position-y: -60px;
 }
 
 .fade-in-text {
