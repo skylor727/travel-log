@@ -9,7 +9,7 @@ const create = async (req, res) => {
     const newTrip = await new Trip({
       user: req.user._id,
       location: req.body.location,
-      images: req.body.images,
+      photos: req.body.photos,
       date: req.body.date,
       tripCost,
     }).save();
@@ -71,12 +71,12 @@ const update = async (req, res) => {
     //Filter existing activities by putting them into a set then converting them back
     const set = new Set(req.body.activities);
     const activities = Array.from(set);
-  
+
     trip.user = req.user._id;
     trip.location = req.body.location;
     trip.date = req.body.date;
     trip.tripCost = req.body.cost;
-    trip.images.push(...req.body.images);
+    trip.photos.push(...req.body.photos);
     activities.forEach((activity) => {
       price = parseInt(activity.price);
       trip.activities.push({
@@ -88,6 +88,7 @@ const update = async (req, res) => {
     await trip.save();
     res.json(trip);
   } catch (err) {
+    console.log(err);
     res.send(err);
   }
 };

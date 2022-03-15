@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TripForm from "../../components/TripForm/TripForm";
 import * as tripsAPI from "../../utilities/trips-api";
 import TripCard from "../../components/TripCard/TripCard";
-import ImageCard from "../../components/ImageCard/ImageCard";
+import PhotoCard from "../../components/PhotoCard/PhotoCard";
 import Button from "@mui/material/Button";
 import DetailedActivityCard from "../../components/DetailedActivityCard/DetailedActivityCard";
 
@@ -28,7 +28,7 @@ const TripDetail = ({ user, routeChange }) => {
     getTrip();
   }, []);
 
-  if (trip) {
+  if (trip && trip.activities) {
     detailedActivityCards = trip.activities.map((activity, idx) => (
       <DetailedActivityCard activity={activity} key={idx} />
     ));
@@ -47,6 +47,7 @@ const TripDetail = ({ user, routeChange }) => {
               user={user}
               upOrDel="update"
               editData={trip}
+              setShowButton={setShowButton}
             />
           )}
           <TripCard
@@ -58,9 +59,9 @@ const TripDetail = ({ user, routeChange }) => {
             showButton={showButton}
             setShowButton={setShowButton}
           />
-          {trip.activities.length > 0 && <h2>Activities</h2>}
+          {trip && trip.activities.length > 0 && <h2>Activities</h2>}
           {detailedActivityCards}
-          <ImageCard images={trip.images} />
+          <PhotoCard photos={trip.photos} />
         </>
       )}
     </>

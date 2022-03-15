@@ -66,22 +66,25 @@ export default function NavBar({ user, setUser, routeChange }) {
               }}
             >
               {user ? (
-                <>
+                [
                   <MenuItem
                     component={Link}
+                    key="1"
                     to={"/trips"}
                     onClick={handleCloseNavMenu}
                   >
                     <Typography textAlign="center">Trips</Typography>
-                  </MenuItem>
+                  </MenuItem>,
                   <MenuItem
+                    key="2"
                     component={Link}
                     to={"/trips/new"}
                     onClick={handleCloseNavMenu}
                   >
                     <Typography textAlign="center">New Trip</Typography>
-                  </MenuItem>
+                  </MenuItem>,
                   <MenuItem
+                    key="3"
                     component={Link}
                     to={"/"}
                     onClick={() => {
@@ -90,8 +93,8 @@ export default function NavBar({ user, setUser, routeChange }) {
                     }}
                   >
                     <Typography textAlign="center">Log Out</Typography>
-                  </MenuItem>
-                </>
+                  </MenuItem>,
+                ]
               ) : (
                 <MenuItem
                   component={Link}

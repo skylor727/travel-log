@@ -12,7 +12,7 @@ const tripSchema = new Schema(
     user: { type: Schema.Types.ObjectId, ref: "User" },
     location: { type: String, required: true },
     tripCost: { type: Number, required: true },
-    images: Array,
+    photos: Array,
     date: { type: String, required: true },
     activities: [activitySchema],
   },

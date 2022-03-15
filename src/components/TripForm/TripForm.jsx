@@ -10,7 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-const TripForm = ({ user, editData, upOrDel, setTrip }) => {
+const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
   const fileInputRef = useRef();
   const [photos, setPhotos] = useState([]);
   const [title, setTitle] = useState("");
@@ -19,7 +19,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
   const [formData, setFormData] = useState({
     location: "",
     cost: "",
-    photos: "",
     activities: [],
     date: "",
   });
@@ -30,7 +29,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("photo", fileInputRef.current.files[0]);
-    const newPhoto = await photosAPI.apiPostImage(formData);
+    const newPhoto = await photosAPI.apiPostPhoto(formData);
     setPhotos([newPhoto, ...photos]);
     // Clear the description and file inputs
     fileInputRef.current.value = "";
@@ -42,7 +41,9 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
     formData.activities = activities;
     formData.photos = photos;
     const updatedTrip = await tripsAPI.handleUpdate(formData, editData._id);
+    console.log(updatedTrip);
     setTrip(updatedTrip);
+    setShowButton(false);
   };
 
   //Handle creating a new trip
@@ -53,11 +54,11 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
     tripsAPI.createTrip(formData, user);
     setFormData({
       location: "",
-      price: "",
-      photos: "",
+      cost: "",
       activities: [],
       date: "",
     });
+    setPhotos([]);
     setActivities([]);
   };
 
@@ -102,7 +103,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          color: "white",
         }}
       >
         <Stack
@@ -130,7 +130,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip }) => {
           <TextField
             required
             label="Trip Cost"
-            value={formData.price}
+            value={formData.cost}
             onChange={handleChange}
             name="cost"
             type="number"

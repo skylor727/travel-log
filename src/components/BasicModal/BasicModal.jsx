@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import RowingIcon from "@mui/icons-material/Rowing";
 import Stack from "@mui/material/Stack";
-import "./Modal.css";
+
 
 const style = {
   color: "black",

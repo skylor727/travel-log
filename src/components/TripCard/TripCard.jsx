@@ -17,7 +17,7 @@ const TripCard = ({
   showButton,
 }) => {
   let activityCards = [];
-  const { user, activities, date, images, location, tripCost } = trip;
+  const { user, activities, date, photos, location, tripCost } = trip;
 
   activityCards = activities.map((activity, idx) => (
     <ActivityCard activity={activity} key={idx} />

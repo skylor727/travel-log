@@ -23,7 +23,7 @@ export default async function sendRequest(
   if (res.ok) return res.json();
   throw new Error("Bad Request");
 }
-export function apiPostImage(formData) {
+export function apiPostPhoto(formData) {
   // See refactored sendRequest function that now accepts a 4th arg
   // used to specify that the payload is a FormData object
   return sendRequest(`${BASE_URL}/upload`, "POST", formData, true);
