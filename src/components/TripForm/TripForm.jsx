@@ -41,7 +41,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
     formData.activities = activities;
     formData.photos = photos;
     const updatedTrip = await tripsAPI.handleUpdate(formData, editData._id);
-    console.log(updatedTrip);
     setTrip(updatedTrip);
     setShowButton(false);
   };

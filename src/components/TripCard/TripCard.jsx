@@ -15,6 +15,7 @@ const TripCard = ({
   id,
   setShowButton,
   showButton,
+  activeUser,
 }) => {
   let activityCards = [];
   const { user, activities, date, photos, location, tripCost } = trip;
@@ -30,7 +31,9 @@ const TripCard = ({
           <Typography>Trip To: {location}</Typography>
           <Typography>Trip Date: {date}</Typography>
           <Typography>Trip Cost: ${tripCost}</Typography>
-          <Typography>Activities {activityCards}</Typography>
+          {activities.length > 0 && (
+            <Typography>Activities: {activityCards}</Typography>
+          )}
         </CardContent>
         <CardActions>
           <Button size="small" component={Link} to={`/trips/${trip._id}`}>
@@ -48,7 +51,7 @@ const TripCard = ({
           <Typography>Trip Cost: ${tripCost}</Typography>
         </CardContent>
         <CardActions>
-          {trip && trip.user._id === user._id && (
+          {trip && trip.user._id === activeUser._id && (
             <>
               <Button onClick={() => handleDelete(id)}>Delete</Button>
               <Button onClick={() => setShowButton(showButton ? null : true)}>
@@ -61,7 +64,7 @@ const TripCard = ({
     </>
   );
 
-  return <Card variant="outlined">{card}</Card>;
+  return <Card>{card}</Card>;
 };
 
 export default TripCard;

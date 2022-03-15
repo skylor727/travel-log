@@ -24,6 +24,5 @@ export function handleDelete(id) {
 
 //Send request to backend to update
 export function handleUpdate(tripData, id) {
-  console.log(tripData);
   return sendRequest(`${BASE_URL}/${id}`, "POST", tripData);
 }

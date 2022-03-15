@@ -14,7 +14,7 @@ const TripDetail = ({ user, routeChange }) => {
   let detailedActivityCards = [];
 
   //Delete the trip
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     tripsAPI.handleDelete(id);
     routeChange("/trips");
   };
@@ -51,7 +51,7 @@ const TripDetail = ({ user, routeChange }) => {
             />
           )}
           <TripCard
-            user={user}
+            activeUser={user}
             trip={trip}
             page="detail"
             handleDelete={handleDelete}
