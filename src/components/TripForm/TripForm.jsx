@@ -8,12 +8,14 @@ import TextField from "@mui/material/TextField";
 import RowingIcon from "@mui/icons-material/Rowing";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import Input from "@mui/material/Input";
 import Box from "@mui/material/Box";
 
 const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
   const fileInputRef = useRef();
   const [photos, setPhotos] = useState([]);
-  const [title, setTitle] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [activities, setActivities] = useState([]);
   const [formData, setFormData] = useState({
@@ -27,7 +29,6 @@ const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
     // Use FormData object to send the inputs in the fetch request
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_a_file
     const formData = new FormData();
-    formData.append("title", title);
     formData.append("photo", fileInputRef.current.files[0]);
     const newPhoto = await photosAPI.apiPostPhoto(formData);
     setPhotos([newPhoto, ...photos]);
@@ -171,18 +172,31 @@ const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
         </Stack>
       </div>
       <h2>Images</h2>
-      <input type="file" ref={fileInputRef} />
       <input
-        value={title}
-        onChange={(evt) => setTitle(evt.target.value)}
-        placeholder="Photo Title"
+        accept="image/*"
+        style={{ display: "none" }}
+        type="file"
+        ref={fileInputRef}
       />
-      <button onClick={handleUpload}>Upload Photo</button>
+      <label htmlFor="icon-button-file">
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="span"
+          onClick={() => fileInputRef.current.click()}
+        >
+          <PhotoCamera />
+        </IconButton>
+      </label>
+      <Button size="small" variant="contained" onClick={handleUpload}>
+        Upload Photo
+      </Button>
       {photos.map((image, idx) => (
         <div key={idx}>
           <img src={image}></img>
         </div>
       ))}
+      <hr />
     </>
   );
 };
