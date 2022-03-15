@@ -23,7 +23,7 @@ const Trips = ({ user }) => {
       <TripCard trip={trip} currentUser={user} key={idx} />
     ));
     tripCards = trips.map((trip, idx) => (
-      <TripCard trip={trip} currentUser={user} key={idx} />
+      <TripCard createdFor="all" trip={trip} currentUser={user} key={idx} />
     ));
   }
 

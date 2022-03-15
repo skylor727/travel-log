@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as tripsAPI from "../../utilities/trips-api";
 import * as photosAPI from "../../utilities/photos-api";
+import PhotoCard from "../../components/PhotoCard/PhotoCard";
 import BasicModal from "../BasicModal/BasicModal";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import Button from "@mui/material/Button";
@@ -191,11 +192,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
       <Button size="small" variant="contained" onClick={handleUpload}>
         Upload Photo
       </Button>
-      {photos.map((image, idx) => (
-        <div key={idx}>
-          <img src={image}></img>
-        </div>
-      ))}
+      <PhotoCard photos={photos} />
       <hr />
     </>
   );

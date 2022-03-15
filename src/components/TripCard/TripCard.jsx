@@ -16,6 +16,7 @@ const TripCard = ({
   setShowButton,
   showButton,
   activeUser,
+  createdFor,
 }) => {
   let activityCards = [];
   const { user, activities, date, photos, location, tripCost } = trip;
@@ -28,6 +29,7 @@ const TripCard = ({
     <>
       <Box sx={{ minWidth: 275 }}>
         <CardContent>
+          {createdFor ? <Typography>Created By: {user.name}</Typography> : null}
           <Typography>Trip To: {location}</Typography>
           <Typography>Trip Date: {date}</Typography>
           <Typography>Trip Cost: ${tripCost}</Typography>
