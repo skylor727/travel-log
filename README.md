@@ -19,6 +19,7 @@ A Full-Stack MERN CRUD application for creating a log of your trips!
    - MongoDB
 ## Getting Started
 - [Access here](https://travel-log-1213.herokuapp.com/)
+- [Trello Board](https://trello.com/b/UiHz0Nbm/project-4)
 - Start by logging in or signing up to access additional screens
 - Once logged in you will be able to access the pages to 
    - Submit a trip
