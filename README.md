@@ -17,6 +17,7 @@ A Full-Stack MERN CRUD application for creating a log of your trips!
    - ExpressJS
    - React
    - MongoDB
+   - AWS S2
 ## Getting Started
 - [Access here](https://travel-log-1213.herokuapp.com/)
 - [Trello Board](https://trello.com/b/UiHz0Nbm/project-4)
