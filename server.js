@@ -28,6 +28,6 @@ app.get("/*", (req, res) =>
 );
 
 //Listening for HTTP requests on a certain port
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3003;
 
 app.listen(port, () => console.log(`Express App running on port ${port}`));
