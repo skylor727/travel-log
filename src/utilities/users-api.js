@@ -1,6 +1,6 @@
 import { getToken } from "./users-service";
 
-const BASE_URL = "/api/users";
+const BASE_URL = "http://localhost:3003/travel-api/users";
 
 export function signUp(userData) {
   return sendRequest(BASE_URL, "POST", userData);

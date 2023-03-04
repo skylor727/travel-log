@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
+const cors = require("cors");
 
 //Always require and config near the top
 require("dotenv").config();
@@ -10,6 +11,7 @@ require("./config/database");
 const app = express();
 
 //Have to invoke to configure
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
@@ -18,16 +20,16 @@ app.use(express.static(path.join(__dirname, "build")));
 //Middleware to verify token and assign user object to req object
 app.use(require("./config/checkToken"));
 
-//API ROUTES HERE
-app.use("/api/users", require("./routes/api/users"));
-app.use("/api/trips", require("./routes/api/trips"));
-app.use("/api/photos", require("./routes/api/photos"));
+//travel-api ROUTES HERE
+app.use("/travel-api/users", require("./routes/travel-api/users"));
+app.use("/travel-api/trips", require("./routes/travel-api/trips"));
+app.use("/travel-api/photos", require("./routes/travel-api/photos"));
 //'Catch All Route'
 app.get("/*", (req, res) =>
   res.sendFile(path.join(__dirname, "build", "index.html"))
 );
 
 //Listening for HTTP requests on a certain port
-const port = process.env.PORT || 3003;
+const port = 3003;
 
 app.listen(port, () => console.log(`Express App running on port ${port}`));

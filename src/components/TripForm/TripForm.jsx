@@ -28,7 +28,7 @@ const TripForm = ({ user, editData, upOrDel, setTrip, setShowButton }) => {
 
   async function handleUpload() {
     // Use FormData object to send the inputs in the fetch request
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_a_file
+    // https://developer.mozilla.org/en-US/docs/Web/travel-api/Fetch_API/Using_Fetch#uploading_a_file
     const formData = new FormData();
     formData.append("photo", fileInputRef.current.files[0]);
     const newPhoto = await photosAPI.apiPostPhoto(formData);

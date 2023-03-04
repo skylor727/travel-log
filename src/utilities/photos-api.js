@@ -1,4 +1,4 @@
-const BASE_URL = "/api/photos";
+const BASE_URL = "http://localhost:3003/travel-api/photos";
 
 export default async function sendRequest(
   url,

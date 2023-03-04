@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const tripsCtrl = require("../../controllers/api/trips");
+const tripsCtrl = require("../../controllers/travel-api/trips");
 const ensureLoggedIn = require("../../config/ensureLoggedIn");
 
 router.get("/", tripsCtrl.index);

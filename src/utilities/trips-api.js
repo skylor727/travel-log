@@ -1,6 +1,6 @@
 //Used to send API requests
 import sendRequest from "./send-request";
-const BASE_URL = "/api/trips";
+const BASE_URL = "http://localhost:3003/travel-api/trips";
 
 //Send the data for a new trip to the backend
 export function createTrip(tripData) {
