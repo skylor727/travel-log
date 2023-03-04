@@ -1,6 +1,6 @@
 import { getToken } from "./users-service";
 
-const BASE_URL = "http://localhost:3003/travel-api/users";
+const BASE_URL = "http://ec2-3-141-196-170.us-east-2.compute.amazonaws.com/travel-api/users";
 
 export function signUp(userData) {
   return sendRequest(BASE_URL, "POST", userData);
