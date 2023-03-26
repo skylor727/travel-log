@@ -1,4 +1,4 @@
-const BASE_URL = "http://ec2-3-141-196-170.us-east-2.compute.amazonaws.com/travel-api/photos";
+const BASE_URL = "http://ec2-3-143-33-30.us-east-2.compute.amazonaws.com/travel-api/photos";
 
 export default async function sendRequest(
   url,
