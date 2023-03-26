@@ -1,7 +1,7 @@
 import { getToken } from "./users-service";
 
 const BASE_URL =
-  "https://ec2-3-143-33-30.us-east-2.compute.amazonaws.com/travel-api/users";
+  "https://skylor-p.com/travel-api/users";
 
 export function signUp(userData) {
   return sendRequest(BASE_URL, "POST", userData);

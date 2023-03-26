@@ -1,6 +1,6 @@
 //Used to send API requests
 import sendRequest from "./send-request";
-const BASE_URL = "http://ec2-3-143-33-30.us-east-2.compute.amazonaws.com/travel-api/trips";
+const BASE_URL = "https://skylor-p.com/travel-api/trips";
 
 //Send the data for a new trip to the backend
 export function createTrip(tripData) {
